@@ -21,10 +21,10 @@ function Login() {
       return;
     }
 
-    // Mock authentication - accepts any username/password
-    // In a real app, this would validate against a backend
     try {
-      login(username, password, selectedRole);
+      // Only pass username and role
+      login(username, selectedRole);
+
       // Redirect to saved articles after successful login
       navigate('/saved');
     } catch (err) {
@@ -49,6 +49,7 @@ function Login() {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               placeholder="Enter your username"
+              required
             />
           </div>
 
@@ -60,6 +61,7 @@ function Login() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter your password"
+              required
             />
           </div>
 
@@ -71,7 +73,7 @@ function Login() {
               onChange={(e) => setSelectedRole(e.target.value)}
             >
               <option value="regular">Regular User</option>
-              <option value="premium">Premium User</option>
+              <option value="admin">Admin</option> 
             </select>
           </div>
 
@@ -83,7 +85,7 @@ function Login() {
         <div className="demo-accounts">
           <p className="demo-title">Demo Accounts (for testing):</p>
           <p>Any username/password combination will work</p>
-          <p>Select "Regular" or "Premium" to test different access levels</p>
+          <p>Select "Regular" or "Admin" to test different access levels</p>
         </div>
       </div>
     </div>

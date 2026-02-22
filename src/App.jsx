@@ -4,20 +4,42 @@ import Layout from './components/Layout';
 import HomePage from './pages/HomePage';
 import SearchPage from './pages/SearchPage';
 import SavedArticlesPage from './pages/SavedArticlesPage';
+import AdminPage from './pages/AdminPage'; 
+import { AuthProvider } from "./context/AuthContext";
+import Login from "./components/Login";
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
-    <ArticlesProvider>
-      <BrowserRouter>
-        <Layout>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/search" element={<SearchPage />} />
-            <Route path="/saved" element={<SavedArticlesPage />} />
-          </Routes>
-        </Layout>
-      </BrowserRouter>
-    </ArticlesProvider>
+    <AuthProvider>
+      <ArticlesProvider>
+        <BrowserRouter>
+          <Layout>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/search" element={<SearchPage />} />
+              <Route 
+                path="/saved" 
+                element={
+                  <ProtectedRoute>
+                    <SavedArticlesPage />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path="/admin" 
+                element={
+                  <ProtectedRoute>
+                    <AdminPage />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route path="/login" element={<Login />} />
+            </Routes>
+          </Layout>
+        </BrowserRouter>
+      </ArticlesProvider>
+    </AuthProvider>    
   );
 }
 
